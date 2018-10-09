@@ -17,7 +17,7 @@ class MovieActivity : BaseActivity<MovieViewModelType>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
-        //setupViewPager()
+        setupViewPager()
     }
 
     private fun setupViewPager() {
