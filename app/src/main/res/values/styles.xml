@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/transparent</item>
-        <item name="colorPrimaryDark">@android:color/transparent</item>
-        <item name="colorAccent">#0585FF</item>
+        <item name="colorPrimary">#1A549B</item>
+        <item name="colorPrimaryDark">#1A549B</item>
+        <item name="colorAccent">#1A549B</item>
     </style>
 
     <!--Custom tab view pager home-->
@@ -13,16 +13,16 @@
         <item name="tabIndicatorColor">@color/white</item>
         <item name="tabSelectedTextColor">@color/white</item>
         <item name="android:textColor">@color/black_26</item>
-        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabIndicatorHeight">5dp</item>
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabBackground">?attr/selectableItemBackground</item>
         <item name="tabTextAppearance">@style/homeTabTextAppearance</item>
-        <item name="android:background">#0585FF</item>
+        <item name="android:background">#2479BC</item>
     </style>
 
     <style name="homeTabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/white_66</item>
         <item name="textAllCaps">false</item>
         <item name="android:textStyle">normal</item>

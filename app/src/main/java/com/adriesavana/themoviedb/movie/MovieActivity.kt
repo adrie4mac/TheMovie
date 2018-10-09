@@ -26,6 +26,6 @@ class MovieActivity : BaseActivity<MovieViewModelType>() {
         adapter.addFragment(MovieFragment.newInstance(CATEGORY_TOP_RATED), CATEGORY_TOP_RATED)
         viewPager_movie.adapter = adapter
         tabs_movie.setupWithViewPager(viewPager_movie)
-        tabs_movie.setTabTextColors(Color.parseColor("#333333"), Color.parseColor("#74206F"));
+        tabs_movie.setTabTextColors(Color.parseColor("#66ffffff"), Color.parseColor("#FFFFFF"));
     }
 }
