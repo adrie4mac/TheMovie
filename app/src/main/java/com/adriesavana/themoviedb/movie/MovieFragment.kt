@@ -8,9 +8,11 @@ import com.adriesavana.kit.extension.disposedBy
 import com.adriesavana.movie.model.MovieDetail
 import com.adriesavana.themoviedb.R
 import com.adriesavana.themoviedb.common.base.BaseListFragment
+import com.adriesavana.themoviedb.moviedetail.MovieDetailActivity
+import com.adriesavana.themoviedb.utils.start
 import kotlinx.android.synthetic.main.fragment_movie.*
 
-class MovieFragment : BaseListFragment<MovieFragmentViewModelType>() {
+class MovieFragment : BaseListFragment<MovieFragmentViewModelType>(), MovieListItem.OnEventClickListener {
 
     override fun getLayoutRes(): Int = R.layout.fragment_movie
 
@@ -38,7 +40,7 @@ class MovieFragment : BaseListFragment<MovieFragmentViewModelType>() {
                     removeLoadMore()
                     stopRefreshing()
                 }
-                .map { t -> t.asSequence().map { MovieListItem(it) }.toList() }
+                .map { t -> t.asSequence().map { MovieListItem(this, it) }.toList() }
                 .subscribe { t: List<MovieListItem>? -> itemAdapter.add(t) }
                 .disposedBy(compositeDisposable)
 
@@ -62,6 +64,12 @@ class MovieFragment : BaseListFragment<MovieFragmentViewModelType>() {
             args.putString(EXTRA_CATEGORY, category)
             fragment.arguments = args
             return fragment
+        }
+    }
+
+    override fun openDetail(movieDetail: MovieDetail) {
+        activity?.start(MovieDetailActivity::class.java) {
+            putExtra(MovieDetailActivity.EXTRA_MOVIE, movieDetail)
         }
     }
 }

@@ -17,7 +17,7 @@ interface MovieDetailViewModelType : ViewModelType {
     val outputs: Outputs
 
     interface Inputs {
-        fun onViewLoaded()
+        fun onViewLoaded(movieDetail: MovieDetail?)
     }
 
     interface Outputs {
@@ -45,8 +45,10 @@ class MovieDetailViewModel(private val movieUseCase: GetMovieListUseCase):
     override val onLoadMovie: Observable<List<MovieDetail>>
         get() = onLoadMovie
 
-    override fun onViewLoaded() {
-        movieUseCase.execute(GetMovieListObserver(), GetMovieListUseCase.Params("popular"))
+    override fun onViewLoaded(movieDetail: MovieDetail?) {
+        movieDetail?.let {
+
+        }
     }
 
     override fun onCleared() {

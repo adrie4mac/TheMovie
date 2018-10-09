@@ -1,5 +1,7 @@
 package com.adriesavana.movie.model
 
+import java.io.Serializable
+
 data class MovieDetail(val voteCount: Int,
                        val id: Int,
                        val video: Boolean,
@@ -14,3 +16,4 @@ data class MovieDetail(val voteCount: Int,
                        val adult: Boolean,
                        val overview: String,
                        val releaseDate: String)
+    : Serializable

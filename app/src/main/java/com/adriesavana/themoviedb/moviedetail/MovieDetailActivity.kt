@@ -8,13 +8,22 @@ import com.adriesavana.themoviedb.common.base.BaseActivity
 
 class MovieDetailActivity : BaseActivity<MovieDetailViewModelType>() {
 
+    companion object {
+        const val TAG = "MovieDetailActivity"
+        const val EXTRA_MOVIE = "EXTRA_MOVIE"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
-        viewModel.inputs.onViewLoaded()
+
+        val movieDetail = intent.extras.get(EXTRA_MOVIE) as? MovieDetail
+        viewModel.inputs.onViewLoaded(movieDetail)
     }
 
     override fun bindViewModel() {
         super.bindViewModel()
+
+        viewModel.outputs.errorMessage.subscribe{}.disposedBy(compositeDisposable)
     }
 }
