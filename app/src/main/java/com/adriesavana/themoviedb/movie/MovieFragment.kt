@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.ViewGroup
+import com.adriesavana.kit.extension.disposedBy
 import com.adriesavana.movie.model.MovieDetail
 import com.adriesavana.themoviedb.R
 import com.adriesavana.themoviedb.common.base.BaseListFragment
@@ -22,23 +23,29 @@ class MovieFragment : BaseListFragment<MovieFragmentViewModelType>() {
     }
 
     override fun doLoadMore() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        viewModel.inputs.loadMovie()
     }
 
     override fun onRefreshed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        viewModel.inputs.loadMovie(1)
     }
 
     override fun bindViewModel() {
         super.bindViewModel()
-        viewModel.outputs.onLoadMovie.subscribe { t: List<MovieDetail>? -> t?.forEach {
+        viewModel.outputs.onLoadMovie
+                .doOnNext {
+                    removeLoadMore()
+                    stopRefreshing()
+                }
+                .subscribe { t: List<MovieDetail>? -> t?.forEach {
             System.out.println(it.title)
-        }}
+        }}.disposedBy(compositeDisposable)
     }
 
     override fun setup() {
         super.setup()
         viewModel.inputs.onViewLoaded(arguments?.getString(EXTRA_CATEGORY))
+        itemAdapter.add(loadMoreListItem)
     }
 
     companion object {

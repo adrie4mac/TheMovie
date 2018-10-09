@@ -17,12 +17,12 @@ class GetMovieListUseCase
     : UseCase.RxSingle<MovieList, GetMovieListUseCase.Params>(threadException, postExecutionThread) {
     override fun build(params: GetMovieListUseCase.Params?): Single<MovieList> {
         params?.let {
-            return repository.getMovieList(it.category, it.page.toString())
+            return repository.getMovieList(it.category!!, it.page.toString())
                     .doOnSuccess { params.page = ++params.page }
         }
 
         throw RuntimeException("param movie by keyword not available")
     }
 
-    data class Params(val category: String, var page: Int = 1)
+    data class Params(var category: String = "", var page: Int = 1)
 }

@@ -77,6 +77,18 @@ abstract class BaseListFragment<VM : ViewModelType> : BaseFragment<VM>() {
 
     }
 
+    open fun removeLoadMore() {
+        if (itemAdapter.adapterItems.contains(loadMoreListItem)) {
+            itemAdapter.remove(itemAdapter.getAdapterPosition(loadMoreListItem))
+        }
+    }
+
+    open fun stopRefreshing() {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
     open fun bindViewModel() {}
 
     open fun setup() {}
