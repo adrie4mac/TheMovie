@@ -29,4 +29,8 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <style name="MovieImage" parent="@style/AppTheme">
+        <item name="android:adjustViewBounds">true</item>
+    </style>
+
 </resources>

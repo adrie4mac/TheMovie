@@ -27,6 +27,7 @@ class MovieFragment : BaseListFragment<MovieFragmentViewModelType>() {
     }
 
     override fun onRefreshed() {
+        itemAdapter.clear()
         viewModel.inputs.loadMovie(1)
     }
 
@@ -37,9 +38,12 @@ class MovieFragment : BaseListFragment<MovieFragmentViewModelType>() {
                     removeLoadMore()
                     stopRefreshing()
                 }
-                .subscribe { t: List<MovieDetail>? -> t?.forEach {
-            System.out.println(it.title)
-        }}.disposedBy(compositeDisposable)
+                .map { t -> t.asSequence().map { MovieListItem(it) }.toList() }
+                .subscribe { t: List<MovieListItem>? -> itemAdapter.add(t) }
+                .disposedBy(compositeDisposable)
+
+        viewModel.outputs.showLoadMore.subscribe{t: Boolean? -> itemAdapter.add(loadMoreListItem) }
+                .disposedBy(compositeDisposable)
     }
 
     override fun setup() {

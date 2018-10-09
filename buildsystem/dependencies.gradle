@@ -33,7 +33,7 @@ ext {
     multidexVersion = "1.0.3"
     fastAdapterVersion = "3.2.5"
     fastAdapterStickyHeaderVersion = "0.4.4-SNAPSHOT"
-    picassoVersion = "2.71828"
+    picassoVersion = "2.5.2"
     lifecycleVersion = "1.1.0"
 
     stagingFlavorsConfig = [

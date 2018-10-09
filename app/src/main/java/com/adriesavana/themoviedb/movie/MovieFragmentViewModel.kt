@@ -24,6 +24,7 @@ interface MovieFragmentViewModelType : ViewModelType {
     interface Outputs {
         val errorMessage: Observable<String>
         val onLoadMovie: Observable<List<MovieDetail>>
+        val showLoadMore: Observable<Boolean>
     }
 
 }
@@ -41,6 +42,8 @@ class MovieFragmentViewModel(private val movieUseCase: GetMovieListUseCase):
     private val errorSubject = PublishSubject.create<String>()
 
     private val movieListSubject = PublishSubject.create<List<MovieDetail>>()
+
+    private val showLoadMoreSubject = PublishSubject.create<Boolean>()
 
     private val param = GetMovieListUseCase.Params()
 
@@ -62,9 +65,13 @@ class MovieFragmentViewModel(private val movieUseCase: GetMovieListUseCase):
 
     override val onLoadMovie: Observable<List<MovieDetail>> get() = movieListSubject
 
+    override val showLoadMore: Observable<Boolean>
+        get() = showLoadMoreSubject.filter { it }
+
     inner class GetMovieListObserver : DisposableSingleObserver<MovieList>() {
         override fun onSuccess(t: MovieList) {
             movieListSubject.onNext(t.movieList)
+            showLoadMoreSubject.onNext(t.totalPagesOfMoview > param.page)
         }
 
         override fun onError(e: Throwable) {
