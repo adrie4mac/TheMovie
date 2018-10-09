@@ -38,6 +38,8 @@ abstract class BaseListFragment<VM : ViewModelType> : BaseFragment<VM>() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initBindView()
+        bindViewModel()
+        setup()
     }
 
     override fun onDestroyView() {
@@ -74,6 +76,10 @@ abstract class BaseListFragment<VM : ViewModelType> : BaseFragment<VM>() {
         recyclerView.setHasFixedSize(true)
 
     }
+
+    open fun bindViewModel() {}
+
+    open fun setup() {}
 
     protected abstract fun getLayoutRes(): Int
 

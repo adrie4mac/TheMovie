@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_movie.*
 class MovieActivity : BaseActivity<MovieViewModelType>() {
 
     companion object {
-        private const val CATEGORY_POPULAR = "POPULAR"
+        const val CATEGORY_POPULAR = "POPULAR"
         private const val CATEGORY_TOP_RATED = "TOP RATED"
     }
 

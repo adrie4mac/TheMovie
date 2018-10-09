@@ -17,7 +17,7 @@ interface MovieFragmentViewModelType : ViewModelType {
     val outputs: Outputs
 
     interface Inputs {
-        fun onViewLoaded()
+        fun onViewLoaded(category: String?)
     }
 
     interface Outputs {
@@ -41,8 +41,11 @@ class MovieFragmentViewModel(private val movieUseCase: GetMovieListUseCase):
 
     private val movieListSubject = PublishSubject.create<List<MovieDetail>>()
 
-    override fun onViewLoaded() {
-        movieUseCase.execute(GetMovieListObserver(), GetMovieListUseCase.Params("popular"))
+    override fun onViewLoaded(category: String?) {
+        category?.let {
+            movieUseCase.execute(GetMovieListObserver(), GetMovieListUseCase
+                    .Params("${if (it.equals(MovieActivity.CATEGORY_POPULAR, ignoreCase = true)) "popular" else "top_rated"}"))
+        }
     }
 
     override val errorMessage: Observable<String> get() = errorSubject.filter { it.isNotEmpty() }

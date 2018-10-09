@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.ViewGroup
+import com.adriesavana.movie.model.MovieDetail
 import com.adriesavana.themoviedb.R
 import com.adriesavana.themoviedb.common.base.BaseListFragment
 import kotlinx.android.synthetic.main.fragment_movie.*
@@ -26,6 +27,18 @@ class MovieFragment : BaseListFragment<MovieFragmentViewModelType>() {
 
     override fun onRefreshed() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun bindViewModel() {
+        super.bindViewModel()
+        viewModel.outputs.onLoadMovie.subscribe { t: List<MovieDetail>? -> t?.forEach {
+            System.out.println(it.title)
+        }}
+    }
+
+    override fun setup() {
+        super.setup()
+        viewModel.inputs.onViewLoaded(arguments?.getString(EXTRA_CATEGORY))
     }
 
     companion object {
