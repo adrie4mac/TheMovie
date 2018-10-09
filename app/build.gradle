@@ -1,0 +1,122 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
+apply from: '../buildsystem/configsDefault.gradle'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    buildToolsVersion globalConfiguration["buildToolsVersion"]
+    flavorDimensions globalConfiguration["flavorDimensions"]
+
+    defaultConfig {
+        multiDexEnabled true
+        resConfigs "id", "en"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            zipAlignEnabled false
+            shrinkResources false
+            minifyEnabled false
+            crunchPngs true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            // Only use this flag on builds you don't proguard or upload to beta-by-crashlytics
+            // This flag is usefull to speed up debug build times
+            ext.alwaysUpdateBuildId = false
+        }
+    }
+
+    dexOptions {
+        keepRuntimeAnnotatedClasses false
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    def stagingFlavorsConfig = rootProject.ext.stagingFlavorsConfig
+    def productionFlavorsConfig = rootProject.ext.productionFlavorsConfig
+
+    productFlavors {
+        staging {
+            applicationId stagingFlavorsConfig.applicationId
+            buildConfigField "String", 'APP_INIT_URL', stagingAppInitURL
+        }
+        production {
+            applicationId productionFlavorsConfig.applicationId
+            buildConfigField "String", 'APP_INIT_URL', productionAppInitURL
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    configurations.all {
+        def appDependencies = rootProject.ext.appDependencies
+
+        resolutionStrategy {
+            force appDependencies.supportUtils
+            force appDependencies.supportCompat
+        }
+    }
+}
+
+afterEvaluate {
+
+}
+
+dependencies {
+    def appDependencies = rootProject.ext.appDependencies
+    def testDependencies = rootProject.ext.testDependencies
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':Kit')
+    implementation project(':Data')
+    implementation project(':Movie')
+    implementation project(':Network')
+
+    implementation rootProject.ext.kotlin
+    implementation appDependencies.appCompatV7
+    implementation appDependencies.supportDesign
+    implementation appDependencies.recyclerView
+    implementation appDependencies.cardView
+    implementation appDependencies.constraintLayout
+    implementation appDependencies.daggerAndroid
+    implementation appDependencies.dagger
+    implementation appDependencies.rxAndroid
+    implementation appDependencies.rxJava
+    implementation appDependencies.gson
+    implementation appDependencies.lifeCycleExtensions
+    implementation appDependencies.lifeCycleStreams
+    implementation appDependencies.rxBinding
+    implementation appDependencies.retrofit
+    implementation appDependencies.multidex
+    implementation appDependencies.fastAdapter
+    implementation appDependencies.fastAdapterCommons
+    implementation appDependencies.fastAdapterExtension
+    implementation appDependencies.fastAdapterExtensionExpandable
+    implementation appDependencies.picasso
+
+    kapt appDependencies.daggerCompiler
+    kapt appDependencies.daggerAndroidProcessor
+    kapt appDependencies.lifeCycleCompiler
+
+    compileOnly appDependencies.javaxAnnotation
+    compileOnly appDependencies.javaxInject
+
+    testImplementation testDependencies.jUnit
+    androidTestImplementation testDependencies.androidTestRunner
+    androidTestImplementation testDependencies.espresso
+
+}

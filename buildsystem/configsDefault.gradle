@@ -1,0 +1,39 @@
+def globalConfiguration = rootProject.extensions.getByName("ext")
+
+android {
+
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    buildToolsVersion globalConfiguration["buildToolsVersion"]
+    flavorDimensions globalConfiguration["flavorDimensions"]
+
+    defaultConfig {
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+        resConfigs "en"
+
+        // region build config
+        buildConfigField 'String', 'API_KEY', api_key
+        // endregion build config
+
+        // region network error messages
+        buildConfigField "String", "KONEKSI_INTERNET_TERPUTUS", network_error_no_connections
+        buildConfigField "String", "TERJADI_KESALAHAN", network_generic_error_message
+        // endregion
+    }
+
+    productFlavors {
+        staging {
+            def stagingFlavorsConfig = globalConfiguration["stagingFlavorsConfig"]
+            versionCode stagingFlavorsConfig.versionCode
+            versionName stagingFlavorsConfig.versionName
+            dimension stagingFlavorsConfig.dimension
+        }
+        production {
+            def productionFlavorsConfig = globalConfiguration["productionFlavorsConfig"]
+            versionCode productionFlavorsConfig.versionCode
+            versionName productionFlavorsConfig.versionName
+            dimension productionFlavorsConfig.dimension
+        }
+    }
+}
