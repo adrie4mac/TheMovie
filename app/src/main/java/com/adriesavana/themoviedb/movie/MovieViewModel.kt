@@ -5,9 +5,9 @@ import android.arch.lifecycle.ViewModelProvider
 import com.adriesavana.themoviedb.common.base.ViewModelType
 import javax.inject.Inject
 
-interface MovieActivityViewModelType : ViewModelType
+interface MovieViewModelType : ViewModelType
 
-class MovieViewModel : ViewModel(), MovieActivityViewModelType {
+class MovieViewModel : ViewModel(), MovieViewModelType {
 
     @Suppress("UNCHECKED_CAST")
     class Factory
