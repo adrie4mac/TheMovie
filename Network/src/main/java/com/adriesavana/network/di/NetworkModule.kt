@@ -48,8 +48,9 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMovieService(@Named(TagInjectConstant.RETROFIT_DEFAULT) retrofit: Retrofit): MovieService {
-        return MovieServiceImpl(retrofit)
+    fun provideMovieService(@Named(TagInjectConstant.RETROFIT_DEFAULT) retrofit: Retrofit,
+                            @Named(TagInjectConstant.API_KEY) apiKey: String): MovieService {
+        return MovieServiceImpl(retrofit, apiKey)
     }
 
     /**

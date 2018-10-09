@@ -18,10 +18,11 @@ class GetMovieListUseCase
     override fun build(params: GetMovieListUseCase.Params?): Single<MovieList> {
         params?.let {
             return repository.getMovieList(it.category, it.page.toString())
+                    .doOnSuccess { params.page = ++params.page }
         }
 
         throw RuntimeException("param movie by keyword not available")
     }
 
-    data class Params(val category: String, val page: Int)
+    data class Params(val category: String, var page: Int = 1)
 }
