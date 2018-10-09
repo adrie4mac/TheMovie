@@ -49,4 +49,9 @@ class AppModule {
     @Named(TagInjectConstant.APP_INIT_URL)
     fun provideAppInitUrl() = BuildConfig.APP_INIT_URL
 
+    @Provides
+    @Singleton
+    @Named(TagInjectConstant.API_KEY)
+    fun provideAppApiKey() = BuildConfig.API_KEY
+
 }

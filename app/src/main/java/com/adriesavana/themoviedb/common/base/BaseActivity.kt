@@ -26,6 +26,11 @@ abstract class BaseActivity<VM : ViewModelType> : AppCompatActivity(), HasSuppor
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        bindViewModel()
+    }
+
+    open fun bindViewModel() {
+
     }
 
     @CallSuper
