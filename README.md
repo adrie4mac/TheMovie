@@ -1,5 +1,12 @@
 # The Movie
 
+#### Requirement:
+1. **Kotlin**
+2. **Clean architecture**
+3. **MVVM**
+4. **RxKotlin/RxJava 2**
+5. **Dagger 2**
+
 ## License
 ```
 Copyright (C) 2018 Adriyadi Savana <adrie4mac@gmail.com>
