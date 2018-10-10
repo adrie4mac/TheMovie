@@ -3,6 +3,7 @@ package com.adriesavana.themoviedb.moviedetail
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.adriesavana.movie.model.MovieDetail
+import com.adriesavana.movie.model.MovieDetailView
 import com.adriesavana.movie.model.MovieList
 import com.adriesavana.movie.usecase.GetMovieListUseCase
 import com.adriesavana.network.extension.getErrorMessage
@@ -22,11 +23,11 @@ interface MovieDetailViewModelType : ViewModelType {
 
     interface Outputs {
         val errorMessage: Observable<String>
-        val onLoadMovie: Observable<List<MovieDetail>>
+        val onLoadMovieDetail: Observable<MovieDetailView>
     }
 }
 
-class MovieDetailViewModel(private val movieUseCase: GetMovieListUseCase):
+class MovieDetailViewModel:
         ViewModel(),
         MovieDetailViewModelType,
         MovieDetailViewModelType.Inputs,
@@ -34,7 +35,7 @@ class MovieDetailViewModel(private val movieUseCase: GetMovieListUseCase):
 
     private val errorSubject = PublishSubject.create<String>()
 
-    private val movieListSubject = PublishSubject.create<List<MovieDetail>>()
+    private val movieDetailSubject = PublishSubject.create<MovieDetailView>()
 
     override val inputs: MovieDetailViewModelType.Inputs get() = this
 
@@ -42,35 +43,23 @@ class MovieDetailViewModel(private val movieUseCase: GetMovieListUseCase):
 
     override val errorMessage: Observable<String> get() = errorSubject.filter { it.isNotEmpty() }
 
-    override val onLoadMovie: Observable<List<MovieDetail>>
-        get() = onLoadMovie
+    override val onLoadMovieDetail: Observable<MovieDetailView> get() = movieDetailSubject
 
     override fun onViewLoaded(movieDetail: MovieDetail?) {
         movieDetail?.let {
-
+            movieDetailSubject.onNext(it.createMovieView())
         }
     }
 
     override fun onCleared() {
-        movieUseCase.dispose()
         super.onCleared()
     }
 
-    inner class GetMovieListObserver : DisposableSingleObserver<MovieList>() {
-        override fun onSuccess(t: MovieList) {
-            movieListSubject.onNext(t.movieList)
-        }
-
-        override fun onError(e: Throwable) {
-            errorSubject.onNext(e.getErrorMessage())
-        }
-    }
-
     class Factory
-    @Inject constructor(private val movieUseCase: GetMovieListUseCase) : ViewModelProvider.Factory {
+    @Inject constructor() : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(MovieDetailViewModel::class.java)) {
-                return MovieDetailViewModel(movieUseCase) as T
+                return MovieDetailViewModel() as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

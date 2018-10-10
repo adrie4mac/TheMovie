@@ -11,6 +11,8 @@ import com.android.databinding.library.baseAdapters.BR
 
 class MovieDetailActivity : BaseActivity<MovieDetailViewModelType>() {
 
+    lateinit var binding: ActivityMovieDetailBinding
+
     companion object {
         const val TAG = "MovieDetailActivity"
         const val EXTRA_MOVIE = "EXTRA_MOVIE"
@@ -18,20 +20,20 @@ class MovieDetailActivity : BaseActivity<MovieDetailViewModelType>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMovieDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail)
+        binding= DataBindingUtil.setContentView(this, R.layout.activity_movie_detail)
 
         val movieDetail = intent.extras.get(EXTRA_MOVIE) as? MovieDetail
-
-        binding.apply {
-            setVariable(BR.movieModel, movieDetail?.createMovieView())
-            executePendingBindings()
-        }
-        //viewModel.inputs.onViewLoaded(movieDetail)
+        viewModel.inputs.onViewLoaded(movieDetail)
     }
 
     override fun bindViewModel() {
         super.bindViewModel()
 
-        viewModel.outputs.errorMessage.subscribe{}.disposedBy(compositeDisposable)
+        viewModel.outputs.onLoadMovieDetail.subscribe{
+            binding.apply {
+                setVariable(BR.movieModel, it)
+                executePendingBindings()
+            }
+        }.disposedBy(compositeDisposable)
     }
 }
