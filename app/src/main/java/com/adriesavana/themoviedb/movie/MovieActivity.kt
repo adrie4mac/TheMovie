@@ -22,10 +22,15 @@ class MovieActivity : BaseActivity<MovieViewModelType>() {
 
     private fun setupViewPager() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(MovieFragment.newInstance(CATEGORY_POPULAR.toLowerCase()), CATEGORY_POPULAR)
-        adapter.addFragment(MovieFragment.newInstance(CATEGORY_TOP_RATED), CATEGORY_TOP_RATED)
+        adapter.apply {
+            addFragment(MovieFragment.newInstance(CATEGORY_POPULAR.toLowerCase()), CATEGORY_POPULAR)
+            addFragment(MovieFragment.newInstance(CATEGORY_TOP_RATED), CATEGORY_TOP_RATED)
+        }
+
         viewPager_movie.adapter = adapter
-        tabs_movie.setupWithViewPager(viewPager_movie)
-        tabs_movie.setTabTextColors(Color.parseColor("#66ffffff"), Color.parseColor("#FFFFFF"));
+        tabs_movie.apply {
+            setupWithViewPager(viewPager_movie)
+            setTabTextColors(Color.parseColor("#66ffffff"), Color.parseColor("#FFFFFF"));
+        }
     }
 }

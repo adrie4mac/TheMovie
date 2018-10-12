@@ -65,16 +65,19 @@ abstract class BaseListFragment<VM : ViewModelType> : BaseFragment<VM>() {
                 .subscribe { doLoadMore() }
                 .disposedBy(compositeDisposable)
 
-        swipeRefreshLayout.isEnabled = true
-        swipeRefreshLayout.setOnRefreshListener {
-            onRefreshed()
+        swipeRefreshLayout.apply {
+            isRefreshing = true
+            setOnRefreshListener {
+                onRefreshed()
+            }
         }
 
-        recyclerView.layoutManager = layoutManager
-        recyclerView.itemAnimator = null
-        recyclerView.adapter = fastAdapter
-        recyclerView.setHasFixedSize(true)
-
+        recyclerView.apply {
+            layoutManager = layoutManager
+            itemAnimator = null
+            adapter = fastAdapter
+            setHasFixedSize(true)
+        }
     }
 
     open fun removeLoadMore() {

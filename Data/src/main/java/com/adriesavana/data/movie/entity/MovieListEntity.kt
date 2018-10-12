@@ -4,7 +4,7 @@ import com.adriesavana.movie.model.MovieDetail
 import com.adriesavana.movie.model.MovieList
 import com.google.gson.annotations.SerializedName
 
-class MovieListEntity(@SerializedName("page") val requestId: Int? = null,
+data class MovieListEntity(@SerializedName("page") val requestId: Int? = null,
                       @SerializedName("total_results") val totalResults: Int? = null,
                       @SerializedName("total_pages") val totalPages: Int? = null,
                       @SerializedName("results") val movies: List<MovieEntity>? = null) {
