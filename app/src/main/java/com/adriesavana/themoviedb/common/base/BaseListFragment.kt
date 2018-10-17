@@ -22,7 +22,7 @@ abstract class BaseListFragment<VM : ViewModelType> : BaseFragment<VM>() {
 
     protected lateinit var recyclerView: RecyclerView
     protected lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    protected lateinit var layoutManager: StaggeredGridLayoutManager
+    protected lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
     protected lateinit var scrollToTop: ImageView
     protected var itemPadding: Int = 0
     protected var scrollToTopTranslation: Float = 0F
@@ -56,7 +56,7 @@ abstract class BaseListFragment<VM : ViewModelType> : BaseFragment<VM>() {
     private fun initView() {
         recyclerView = getRecyclerView() as RecyclerView
         swipeRefreshLayout = getSwipeRefreshLayout() as SwipeRefreshLayout
-        layoutManager = getLayoutManager() as StaggeredGridLayoutManager
+        staggeredGridLayoutManager = getLayoutManager() as StaggeredGridLayoutManager
     }
 
     private fun initBindView() {
@@ -73,7 +73,7 @@ abstract class BaseListFragment<VM : ViewModelType> : BaseFragment<VM>() {
         }
 
         recyclerView.apply {
-            layoutManager = layoutManager
+            layoutManager = staggeredGridLayoutManager
             itemAnimator = null
             adapter = fastAdapter
             setHasFixedSize(true)
