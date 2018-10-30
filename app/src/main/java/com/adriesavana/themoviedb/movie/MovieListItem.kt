@@ -10,6 +10,9 @@ import com.mikepenz.fastadapter.items.AbstractItem
 class MovieListItem(private val listener: OnEventClickListener?,
                     private val movieDetail: MovieDetail)
     : AbstractItem<MovieListItem, MovieListItem.ViewHolder>() {
+
+    private val onClickListener = View.OnClickListener { listener?.openDetail(movieDetail) }
+
     override fun getType(): Int = hashCode()
 
     override fun getViewHolder(v: View): ViewHolder = ViewHolder(v)
@@ -23,7 +26,7 @@ class MovieListItem(private val listener: OnEventClickListener?,
             executePendingBindings()
         }
 
-        holder.itemView.setOnClickListener { listener?.openDetail(movieDetail) }
+        holder.itemView.setOnClickListener(onClickListener)
     }
 
     class ViewHolder(itemView: View) : BindableListItemViewHolder<ListItemMovieBinding>(itemView)
