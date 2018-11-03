@@ -10,7 +10,7 @@ ext {
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 28
     androidCompileSdkVersion = 28
-    buildToolsVersion = "28.0.2"
+    buildToolsVersion = "28.0.3"
     flavorDimensions = "default"
 
     playServiceVersion = "11.8.0"
