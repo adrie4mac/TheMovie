@@ -7,11 +7,9 @@ import com.adriesavana.themoviedb.common.base.BindableListItemViewHolder
 import com.adriesavana.themoviedb.databinding.ListItemMovieBinding
 import com.mikepenz.fastadapter.items.AbstractItem
 
-class MovieListItem(private val listener: OnEventClickListener?,
+class MovieListItem(private val eventListener: OnEventClickListener?,
                     private val movieDetail: MovieDetail)
     : AbstractItem<MovieListItem, MovieListItem.ViewHolder>() {
-
-    private val onClickListener = View.OnClickListener { listener?.openDetail(movieDetail) }
 
     override fun getType(): Int = hashCode()
 
@@ -22,11 +20,10 @@ class MovieListItem(private val listener: OnEventClickListener?,
     override fun bindView(holder: ViewHolder, payloads: MutableList<Any>) {
         super.bindView(holder, payloads)
         holder.binding.apply {
+            listener = eventListener
             movieModel = movieDetail
             executePendingBindings()
         }
-
-        holder.itemView.setOnClickListener(onClickListener)
     }
 
     class ViewHolder(itemView: View) : BindableListItemViewHolder<ListItemMovieBinding>(itemView)

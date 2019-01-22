@@ -9,6 +9,10 @@
         <variable
             name="movieModel"
             type="com.adriesavana.movie.model.MovieDetail" />
+
+        <variable
+            name="listener"
+            type="com.adriesavana.themoviedb.movie.MovieListItem.OnEventClickListener" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -16,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:elevation="4dp"
+        android:onClick="@{()->listener.openDetail(movieModel)}"
         app:cardCornerRadius="10dp">
 
         <android.support.constraint.ConstraintLayout
