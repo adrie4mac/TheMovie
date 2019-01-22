@@ -1,6 +1,6 @@
 package com.adriesavana.kit.model
 
-class Error(
+open class Error(
         val requestId: String,
         val status: Int,
         val data: List<Any>,
