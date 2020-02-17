@@ -4,12 +4,8 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.adriesavana.movie.model.MovieDetail
 import com.adriesavana.movie.model.MovieDetailView
-import com.adriesavana.movie.model.MovieList
-import com.adriesavana.movie.usecase.GetMovieListUseCase
-import com.adriesavana.network.extension.getErrorMessage
 import com.adriesavana.themoviedb.common.base.ViewModelType
 import io.reactivex.Observable
-import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
@@ -51,17 +47,14 @@ class MovieDetailViewModel:
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-    }
-
     class Factory
     @Inject constructor() : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(MovieDetailViewModel::class.java)) {
-                return MovieDetailViewModel() as T
+            if (!modelClass.isAssignableFrom(MovieDetailViewModel::class.java)) {
+                throw IllegalArgumentException("Unknown ViewModel class")
             }
-            throw IllegalArgumentException("Unknown ViewModel class")
+
+            return MovieDetailViewModel() as T
         }
     }
 }

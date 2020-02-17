@@ -8,6 +8,7 @@ class TagInjectConstant {
         const val APP_INIT_URL = "app_init_url"
         const val IS_DEBUG = "is_debug"
         const val CONNECTIVITY_INTERCEPTOR = "connectivity_interceptor"
+        const val CHUCK_INTERCEPTOR = "chuck_interceptor"
         const val RETROFIT_DEFAULT = "TagInjectConstant.RETROFIT_DEFAULT"
         const val OKHTTP_DEFAULT = "TagInjectConstant.OKHTTP_DEFAULT"
     }

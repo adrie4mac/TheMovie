@@ -15,5 +15,4 @@ open class MovieEntity(@SerializedName("vote_count") val voteCount: Int? = null,
                        @SerializedName("backdrop_path") val backdropPath: String? = null,
                        @SerializedName("adult") val adult: Boolean? = null,
                        @SerializedName("overview") val overview: String? = null,
-                       @SerializedName("release_date") val releaseDate: String? = null) {
-}
+                       @SerializedName("release_date") val releaseDate: String? = null)

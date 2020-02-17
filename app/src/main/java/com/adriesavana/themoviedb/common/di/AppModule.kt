@@ -5,6 +5,7 @@ import com.adriesavana.kit.constants.TagInjectConstant
 import com.adriesavana.themoviedb.BuildConfig
 import com.adriesavana.themoviedb.common.base.ConnectivityInterceptor
 import com.adriesavana.themoviedb.utils.NetworkUtil
+import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -53,5 +54,13 @@ class AppModule {
     @Singleton
     @Named(TagInjectConstant.API_KEY)
     fun provideAppApiKey() = BuildConfig.API_KEY
+
+
+    @Provides
+    @Singleton
+    @Named(TagInjectConstant.CHUCK_INTERCEPTOR)
+    fun provideChuckInterceptor(app: Application): Interceptor {
+        return ChuckInterceptor(app.applicationContext)
+    }
 
 }

@@ -7,6 +7,14 @@
     <data>
 
         <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="vote"
+            type="String" />
+
+        <variable
             name="movieModel"
             type="com.adriesavana.movie.model.MovieDetail" />
 
@@ -28,7 +36,6 @@
             android:layout_height="wrap_content">
 
             <com.adriesavana.themoviedb.utils.CustomImageView
-                android:id="@+id/imageMovie"
                 style="@style/MovieImage"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -39,31 +46,44 @@
                 app:setImageUrlCenterCrop="@{movieModel.posterPath}"
                 tools:src="@drawable/ic_launcher_foreground" />
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:maxLines="1"
-                android:text="@{movieModel.title}"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/imageMovie"
-                tools:text="Superman" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/layout_rounded_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-55dp"
-                android:maxLines="2"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:text="@{movieModel.overview}"
+                android:layout_margin="10dp"
+                android:gravity="center_horizontal"
+                android:text="@{title}"
+                android:textColor="@android:color/white"
                 android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="Superman" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.65"
+                android:background="@android:color/background_dark"
+                android:drawableLeft="@drawable/vector_star"
+                android:drawablePadding="2dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="4dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="4dp"
+                android:text="@{vote}"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="9.5" />
 
         </android.support.constraint.ConstraintLayout>
 

@@ -107,6 +107,7 @@ dependencies {
     implementation appDependencies.fastAdapterExtension
     implementation appDependencies.fastAdapterExtensionExpandable
     implementation appDependencies.picasso
+    implementation appDependencies.chuck
 
     kapt appDependencies.daggerCompiler
     kapt appDependencies.daggerAndroidProcessor

@@ -44,7 +44,8 @@ class MovieFragment : BaseListFragment<MovieFragmentViewModelType>(), MovieListI
                 .subscribe { t: List<MovieListItem>? -> itemAdapter.add(t) }
                 .disposedBy(compositeDisposable)
 
-        viewModel.outputs.showLoadMore.subscribe{t: Boolean? -> itemAdapter.add(loadMoreListItem) }
+        viewModel.outputs.showLoadMore
+                .subscribe { itemAdapter.add(loadMoreListItem) }
                 .disposedBy(compositeDisposable)
     }
 
@@ -55,15 +56,14 @@ class MovieFragment : BaseListFragment<MovieFragmentViewModelType>(), MovieListI
     }
 
     companion object {
-        const val TAG = "MovieFragment"
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
 
         fun newInstance(category: String): MovieFragment {
-            val fragment = MovieFragment()
-            val args = Bundle()
-            args.putString(EXTRA_CATEGORY, category)
-            fragment.arguments = args
-            return fragment
+            val bundle = Bundle()
+            bundle.putString(EXTRA_CATEGORY, category)
+            return MovieFragment().apply {
+                arguments = bundle
+            }
         }
     }
 

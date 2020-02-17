@@ -11,6 +11,14 @@ class MovieListItem(private val eventListener: OnEventClickListener?,
                     private val movieDetail: MovieDetail)
     : AbstractItem<MovieListItem, MovieListItem.ViewHolder>() {
 
+    private val voteAverage by lazy {
+        movieDetail.voteAverage.toString()
+    }
+
+    private val titleMovie by lazy {
+        "${movieDetail.title} (${movieDetail.releaseDate.take(4)})"
+    }
+
     override fun getType(): Int = hashCode()
 
     override fun getViewHolder(v: View): ViewHolder = ViewHolder(v)
@@ -22,6 +30,8 @@ class MovieListItem(private val eventListener: OnEventClickListener?,
         holder.binding.apply {
             listener = eventListener
             movieModel = movieDetail
+            vote = voteAverage
+            title = titleMovie
             executePendingBindings()
         }
     }

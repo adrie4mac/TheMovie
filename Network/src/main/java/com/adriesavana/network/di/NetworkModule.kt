@@ -37,10 +37,11 @@ class NetworkModule {
     @Named(TagInjectConstant.OKHTTP_DEFAULT)
     fun provideOkHttpClient(certificatePinner: CertificatePinner,
                             @Named(TagInjectConstant.IS_DEBUG) isDebug: Boolean,
-                            @Named(TagInjectConstant.CONNECTIVITY_INTERCEPTOR) connectivityInterceptor: Interceptor)
+                            @Named(TagInjectConstant.CONNECTIVITY_INTERCEPTOR) connectivityInterceptor: Interceptor,
+                            @Named(TagInjectConstant.CHUCK_INTERCEPTOR) chuckInterceptor: Interceptor)
             : OkHttpClient {
         return OkHttpClient.Builder()
-                .defaultBuilder(isDebug)
+                .defaultBuilder(isDebug, chuckInterceptor)
                 .certificatePinner(certificatePinner)
                 .addInterceptor(connectivityInterceptor)
                 .build()

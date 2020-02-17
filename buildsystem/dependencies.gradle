@@ -7,7 +7,7 @@ allprojects {
 }
 
 ext {
-    androidMinSdkVersion = 15
+    androidMinSdkVersion = 16
     androidTargetSdkVersion = 28
     androidCompileSdkVersion = 28
     buildToolsVersion = "28.0.3"
@@ -35,6 +35,7 @@ ext {
     fastAdapterStickyHeaderVersion = "0.4.4-SNAPSHOT"
     picassoVersion = "2.5.2"
     lifecycleVersion = "1.1.0"
+    chuckVersion = "1.1.0"
 
     stagingFlavorsConfig = [
             applicationId : "com.adriesavana.themovie.stage",
@@ -85,7 +86,8 @@ ext {
             fastAdapterCommons    : "com.mikepenz:fastadapter-commons:${fastAdapterVersion}@aar",
             fastAdapterExtension  : "com.mikepenz:fastadapter-extensions:${fastAdapterVersion}@aar",
             fastAdapterExtensionExpandable  : "com.mikepenz:fastadapter-extensions-expandable:${fastAdapterVersion}@aar",
-            picasso               : "com.squareup.picasso:picasso:${picassoVersion}"
+            picasso               : "com.squareup.picasso:picasso:${picassoVersion}",
+            chuck                 : "com.readystatesoftware.chuck:library:$chuckVersion"
     ]
     //endregion
 

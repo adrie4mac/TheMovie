@@ -17,12 +17,12 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 abstract class BaseListFragment<VM : ViewModelType> : BaseFragment<VM>() {
 
     protected var itemAdapter = ItemAdapter<IItem<*, *>>()
-    protected var fastAdapter: FastAdapter<IItem<*, *>> = FastAdapter.with(itemAdapter)
+    private var fastAdapter: FastAdapter<IItem<*, *>> = FastAdapter.with(itemAdapter)
     protected var loadMoreListItem: LoadMoreListItem = LoadMoreListItem()
 
-    protected lateinit var recyclerView: RecyclerView
-    protected lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    protected lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var staggeredGridLayoutManager: StaggeredGridLayoutManager
     protected lateinit var scrollToTop: ImageView
     protected var itemPadding: Int = 0
     protected var scrollToTopTranslation: Float = 0F
@@ -81,15 +81,14 @@ abstract class BaseListFragment<VM : ViewModelType> : BaseFragment<VM>() {
     }
 
     open fun removeLoadMore() {
-        if (itemAdapter.adapterItems.contains(loadMoreListItem)) {
-            itemAdapter.remove(itemAdapter.getAdapterPosition(loadMoreListItem))
+        itemAdapter.run {
+            takeIf { it.adapterItems.contains(loadMoreListItem) }
+                    ?.remove(getAdapterPosition(loadMoreListItem))
         }
     }
 
     open fun stopRefreshing() {
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
+        swipeRefreshLayout.takeIf { it.isRefreshing }?.isRefreshing = false
     }
 
     open fun bindViewModel() {}
