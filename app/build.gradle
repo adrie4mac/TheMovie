@@ -81,10 +81,10 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':Kit')
-    implementation project(':Data')
-    implementation project(':Movie')
-    implementation project(':Network')
+    implementation project(':kit')
+    implementation project(':data')
+    implementation project(':movie')
+    implementation project(':network')
 
     implementation rootProject.ext.kotlin
     implementation appDependencies.appCompatV7
