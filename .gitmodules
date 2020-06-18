@@ -1,6 +1,6 @@
 [submodule "network"]
 	path = network
-	url = ../../adrie4mac/TheMovie.git
+	url = https://github.com/adrie4mac/TheMovie.git
 [submodule "movie"]
 	path = movie
-	url = ../../adrie4mac/TheMovie.git
+	url = https://github.com/adrie4mac/TheMovie.git
