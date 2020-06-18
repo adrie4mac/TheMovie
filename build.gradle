@@ -1,0 +1,27 @@
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    def appDependencies = rootProject.ext.appDependencies
+    def testDependencies = rootProject.ext.testDependencies
+
+    testImplementation testDependencies.jUnit
+
+    implementation project(':kit')
+    implementation project(':data')
+
+    implementation rootProject.ext.kotlin
+    implementation appDependencies.rxJava
+    implementation appDependencies.gson
+    implementation appDependencies.retrofit
+    implementation appDependencies.retrofitGsonConverter
+    implementation appDependencies.retrofitRxJava2Adapter
+    implementation appDependencies.okHttpLogging
+    implementation appDependencies.dagger
+
+    kapt appDependencies.daggerCompiler
+
+    compileOnly appDependencies.javaxAnnotation
+    compileOnly appDependencies.javaxInject
+
+}
