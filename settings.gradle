@@ -1,1 +1,1 @@
-include ':app', ':Network', ':Kit', ':Data', ':Movie'
+include ':app', ':network', ':Kit', ':data', ':movie'

@@ -4,3 +4,6 @@
 [submodule "movie"]
 	path = movie
 	url = https://github.com/adrie4mac/TheMovie.git
+[submodule "data"]
+	path = data
+	url = https://github.com/adrie4mac/TheMovie.git
