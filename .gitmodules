@@ -7,3 +7,6 @@
 [submodule "data"]
 	path = data
 	url = https://github.com/adrie4mac/TheMovie.git
+[submodule "kit"]
+	path = kit
+	url = https://github.com/adrie4mac/TheMovie.git
