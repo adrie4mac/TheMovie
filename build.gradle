@@ -1,0 +1,25 @@
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    def appDependencies = rootProject.ext.appDependencies
+    def testDependencies = rootProject.ext.testDependencies
+
+    implementation project(':kit')
+    implementation project(':movie')
+
+    implementation rootProject.ext.kotlin
+    implementation appDependencies.dagger
+    implementation appDependencies.rxJava
+    implementation appDependencies.gson
+
+    kapt appDependencies.daggerCompiler
+
+    compileOnly appDependencies.javaxAnnotation
+    compileOnly appDependencies.javaxInject
+
+    testImplementation testDependencies.jUnit
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
