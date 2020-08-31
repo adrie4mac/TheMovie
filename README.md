@@ -1,6 +1,6 @@
 # The Movie
 
-#### Requirement:
+#### Technical Used:
 1. **Kotlin**
 2. **Clean architecture**
 3. **MVVM**
